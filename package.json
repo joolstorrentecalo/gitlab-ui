@@ -64,7 +64,7 @@
     "lint": "run-p prettier eslint stylelint markdownlint",
     "lint:fix": "run-s eslint:fix prettier:fix stylelint:fix markdownlint:fix",
     "generate:component": "plop",
-    "translations:collect": "make translations.json",
+    "translations:collect": "make translations.json src/translations.js",
     "tailwind-config-viewer": "tailwind-config-viewer -o"
   },
   "dependencies": {
