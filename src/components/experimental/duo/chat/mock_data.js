@@ -3,8 +3,8 @@ import { InsertCodeSnippetElement } from './components/duo_chat_message/insert_c
 import {
   DOCUMENTATION_SOURCE_TYPES,
   MESSAGE_MODEL_ROLES,
+  CHAT_CLEAR_MESSAGE,
   CHAT_RESET_MESSAGE,
-  CHAT_CLEAN_MESSAGE,
 } from './constants';
 
 const MOCK_SOURCES = [
@@ -149,7 +149,7 @@ export const SLASH_COMMANDS = [
     description: 'Reset conversation, ignore the previous messages.',
   },
   {
-    name: CHAT_CLEAN_MESSAGE,
+    name: CHAT_CLEAR_MESSAGE,
     shouldSubmit: true,
     description: 'Delete all messages in this conversation.',
   },
