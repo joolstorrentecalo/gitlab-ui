@@ -201,7 +201,6 @@ export default {
           no-caret
           icon="ellipsis_h"
           size="small"
-          style="height: 16px"
         />
       </li>
 

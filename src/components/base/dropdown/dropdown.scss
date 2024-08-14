@@ -113,10 +113,10 @@
     }
 
     &.gl-button {
-      @apply gl-px-3;
+      @apply gl-px-0;
 
       &.btn-sm {
-        @apply gl-px-2;
+        @apply gl-px-0;
       }
     }
   }
@@ -173,6 +173,10 @@
   }
 
   .dropdown-icon-only {
+    &.dropdown-toggle-no-caret {
+      padding: 0 !important;
+    }
+
     .dropdown-icon,
     .gl-button-icon.gl-button-icon {
       @apply gl-mr-0;

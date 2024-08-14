@@ -1,22 +1,6 @@
 /*
  * Button-specific utilities
  */
-@mixin gl-button-border($color) {
-  box-shadow: inset 0 0 0 $gl-border-size-1 $color;
-}
-
-@mixin gl-button-hover-border($color) {
-  box-shadow: inset 0 0 0 $gl-border-size-2 $color;
-}
-
-@mixin gl-button-selected-border($color, $focus-ring: null) {
-  @if $focus-ring {
-    box-shadow: inset 0 0 0 $gl-border-size-2 $color, $focus-ring;
-  } @else {
-    box-shadow: inset 0 0 0 $gl-border-size-2 $color;
-  }
-}
-
 @mixin gl-button-theme(
   $color: null,
   $background-color: null,
@@ -33,29 +17,30 @@
 ) {
   color: $color;
   background-color: $background-color;
-  @include gl-button-border($border-color);
+  border-color: $border-color;
 
   &:hover {
     color: $hover-color;
     background-color: $hover-background-color;
-    @include gl-button-hover-border($hover-border-color);
+    border-color: $hover-border-color;
   }
 
   &:focus {
     color: $focus-color;
     background-color: $focus-background-color;
-    @include gl-focus($color: $focus-border-color);
+    border-color: $focus-border-color;
   }
 
   &:active,
   &.active {
     color: $active-color;
     background-color: $active-background-color;
-    @include gl-focus($color: $active-border-color);
+    border-color: $active-border-color;
+  }
 
-    &:focus {
-      @include gl-focus($color: $active-border-color);
-    }
+  &:focus,
+  &:focus:active {
+    @include gl-focus;
   }
 }
 
@@ -72,23 +57,31 @@
   }
 }
 
-// double specificity to override bootstrap and reboot styling
-.gl-button.gl-button {
-  @apply gl-border-0;
+.gl-button.gl-button,
+.gl-button.gl-button.btn-block {
   @apply gl-rounded-base;
-  @apply gl-py-3;
+  @apply gl-py-0;
   @apply gl-px-4;
   background-color: var(--gl-button-default-primary-background-color-default);
   @include gl-line-height-normal;
   color: var(--gl-button-default-primary-foreground-color-default);
   @include gl-fill-current-color;
-  @include gl-button-border(var(--gl-button-default-primary-border-color-default));
+  border: $gl-border-size-1 solid var(--gl-button-default-primary-border-color-default);
   @include gl-justify-content-center;
   @include gl-align-items-center;
   @include gl-font-base;
+  min-height: $gl-button-medium-size;
+  min-width: $gl-button-medium-size;
+  @include gl-prefers-reduced-motion-transition;
+  transition: color $gl-transition-duration-medium $gl-easing-out-cubic,
+              background-color $gl-transition-duration-medium $gl-easing-out-cubic,
+              border-color $gl-transition-duration-medium $gl-easing-out-cubic,
+              box-shadow $gl-transition-duration-medium $gl-easing-out-cubic,
+              text-decoration-color $gl-transition-duration-medium $gl-easing-out-cubic;
 
-  @media (forced-colors: active) {
-    border: 1px solid;
+  &:focus,
+  &:focus:active {
+    @include gl-focus;
   }
 
   .gl-button-text {
@@ -136,29 +129,26 @@
     &.selected {
       color: var(--gl-button-selected-foreground-color-default);
       background-color: var(--gl-button-selected-background-color-default);
-      @include gl-button-selected-border(var(--gl-button-selected-border-color-default));
+      border-width: $gl-border-size-2;
+      border-color: var(--gl-button-selected-border-color-default);
 
       &:hover {
         color: var(--gl-button-selected-foreground-color-hover);
         background-color: var(--gl-button-selected-background-color-hover);
-        @include gl-button-selected-border(var(--gl-button-selected-border-color-hover));
+        border-color: var(--gl-button-selected-border-color-hover);
       }
 
       &:focus {
         color: var(--gl-button-selected-foreground-color-focus);
         background-color: var(--gl-button-selected-background-color-focus);
-        @include gl-button-selected-border(var(--gl-button-selected-border-color-focus), $focus-ring);
+        border-color: var(--gl-button-selected-border-color-focus);
       }
 
       &:active,
       &.active {
         color: var(--gl-button-selected-foreground-color-active);
         background-color: var(--gl-button-selected-background-color-active);
-        @include gl-button-selected-border(var(--gl-button-selected-border-color-active), $focus-ring);
-
-        &:focus {
-          @include gl-button-selected-border(var(--gl-button-selected-border-color-active), $focus-ring);
-        }
+        border-color: var(--gl-button-selected-border-color-active);
       }
     }
   }
@@ -307,22 +297,10 @@
   &.btn-success,
   &.btn-danger {
     &-tertiary {
-      @include gl-shadow-none;
-
       @media (forced-colors: active) {
         color: LinkText; // stylelint-disable-line scale-unlimited/declaration-strict-value
         mix-blend-mode: initial;
         border: 0;
-      }
-
-      &:hover {
-        @include gl-shadow-none;
-      }
-
-      &:active,
-      &:focus,
-      &:focus:active {
-        @include gl-focus;
       }
     }
   }
@@ -339,26 +317,18 @@
   &.btn-success {
     @include gl-text-contrast-light;
     @include gl-bg-green-500;
-    @include gl-inset-border-1-green-600;
+    border-color: $green-600;
 
-    &:hover {
-      @include gl-button-hover-border($green-800);
-      background-color: $green-600;
-    }
-
+    &:hover,
     &:focus {
-      @include gl-focus($color: $green-800);
-      @include gl-bg-green-600;
+      border-color: $green-800;
+      background-color: $green-600;
     }
 
     &:active,
     &.active {
-      @include gl-focus($color: $green-900);
+      border-color: $green-900;
       @include gl-bg-green-700;
-
-      &:focus {
-        @include gl-focus($color: $green-900);
-      }
     }
   }
 
@@ -371,37 +341,29 @@
     @include gl-bg-transparent;
     @include gl-text-green-500;
     @include gl-font-weight-normal;
-    @include gl-inset-border-1-green-500;
+    border-color: $green-500;
 
-    &:hover {
-      @include gl-text-green-700;
-      @include gl-button-hover-border($green-700);
-      background-color: $green-50;
-    }
-
+    &:hover,
     &:focus {
       @include gl-text-green-700;
-      @include gl-focus($color: $green-700);
-      @include gl-bg-green-50;
+      border-color: $green-700;
+      background-color: $green-50;
     }
 
     &:active,
     &.active {
       @include gl-text-green-900;
-      @include gl-focus($color: $green-900);
+      border-color: $green-900;
       @include gl-bg-green-100;
-
-      &:focus {
-        @include gl-focus($color: $green-900);
-      }
     }
   }
 
   &.btn-sm {
-    @apply gl-py-2;
     @apply gl-px-3;
     @include gl-line-height-normal;
     @include gl-font-base;
+    min-height: $gl-button-small-size;
+    min-width: $gl-button-small-size;
 
     gl-emoji {
       @include gl-font-sm;
@@ -410,53 +372,37 @@
 
   &.btn-dashed,
   &.btn-dashed-tertiary {
-    @include gl-button-border(var(--gl-button-dashed-border-color-default));
-    outline: 3px dotted var(--gl-background-color-default);
-    outline-offset: (-$gl-border-size-1);
+    border-style: dashed;
+    border-color: var(--gl-button-dashed-border-color-default);
 
     &:hover {
-      @include gl-button-border($color: var(--gl-button-dashed-border-color-hover));
-      outline: 3px dotted var(--gl-background-color-default);
-      outline-offset: (-$gl-border-size-1);
+      border-color: var(--gl-button-dashed-border-color-hover);
     }
 
     &:focus {
-      @include gl-focus($color: var(--gl-button-dashed-border-color-focus));
-      outline: 3px dotted var(--gl-background-color-default);
-      outline-offset: (-$gl-border-size-1);
+      border-color: var(--gl-button-dashed-border-color-focus);
     }
 
     &:active,
     &.active {
-      @include gl-focus($color: var(--gl-button-dashed-border-color-active));
-      outline: 3px dotted var(--gl-background-color-default);
-      outline-offset: (-$gl-border-size-1);
-
-      &:focus {
-        @include gl-focus($color: var(--gl-button-dashed-border-color-active));
-        outline: 3px dotted var(--gl-background-color-default);
-        outline-offset: (-$gl-border-size-1);
-      }
+      border-color: var(--gl-button-dashed-border-color-active);
     }
   }
 
   &.btn-icon {
-    @apply gl-p-3;
+    @apply gl-p-0;
     @include gl-line-height-normal;
 
     .gl-button-icon {
       @apply gl-mr-0;
     }
-
-    &.btn-sm {
-      @apply gl-p-2;
-    }
   }
 
   &.button-ellipsis-horizontal,
   &.button-ellipsis-horizontal.btn-sm {
-    @apply gl-py-0;
     @apply gl-px-2;
+    min-height: auto;
+    min-width: auto;
 
     svg {
       @include gl-h-5;
@@ -480,25 +426,28 @@
     @include gl-font-base;
     @include gl-line-height-normal;
     color: var(--gl-button-link-text-color-default);
-    @apply gl-py-0;
-    @apply gl-px-0;
-    @include gl-shadow-none;
+    @include gl-px-0;
+    min-height: auto;
+    min-width: auto;
+    text-decoration-thickness: auto;
+    text-decoration-style: solid;
+    text-decoration-color: transparent;
 
     &:hover {
       @include gl-bg-transparent;
       color: var(--gl-button-link-text-color-hover);
+      text-decoration-color: var(--gl-button-link-text-color-hover);
     }
 
     &:active {
       color: var(--gl-button-link-text-color-active);
-      @include gl-text-decoration-underline;
+      text-decoration-color: var(--gl-button-link-text-color-active);
     }
 
     &:active,
     &:focus,
     &:focus:active {
       @include gl-bg-transparent;
-      @include gl-focus;
     }
 
     &.disabled,
@@ -529,7 +478,7 @@
   &[disabled].selected {
     background-color: var(--gl-button-disabled-background-color);
     color: var(--gl-button-disabled-foreground-color);
-    @include gl-button-border(var(--gl-button-disabled-border-color));
+    border-color: var(--gl-button-disabled-border-color);
     opacity: 1;
     cursor: not-allowed !important;
   }

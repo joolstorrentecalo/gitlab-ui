@@ -66,8 +66,10 @@ $label-padding-horizontal-half: 0.375 * $grid-size;
   > #{$label-close-button} {
     @apply gl-border-0;
     @include gl-display-flex;
-    width: px-to-rem(14px);
     height: px-to-rem(14px);
+    width: px-to-rem(14px);
+    min-height: auto !important;
+    min-width: auto !important;
     margin-left: -$label-padding-horizontal-half;
     margin-right: $label-padding-horizontal-half;
     @apply gl-p-0;

@@ -48,6 +48,10 @@ $breadcrumb-max-width: $grid-size * 16;
       @include gl-focus;
     }
   }
+
+  .gl-new-dropdown-icon-only.gl-button.btn-icon {
+    min-height: auto;
+  }
 }
 
 .gl-breadcrumb-item:last-child > a {
