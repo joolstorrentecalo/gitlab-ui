@@ -1,86 +1,53 @@
 .gl-pagination {
   @apply gl-text-base;
+  @apply gl-text-nowrap;
+
+  ul {
+    @apply gl-flex;
+    @apply gl-pl-0;
+    @apply gl-list-none;
+    @apply gl-rounded-base;
+  }
 
   a {
-    @include gl-text-gray-900;
-  }
-
-  .page-link {
-    @apply gl-border-gray-200;
-    @apply gl-leading-normal;
-    @apply gl-px-4;
-    @apply gl-py-3;
-
-    &.prev-page-item,
-    &.next-page-item {
-      @apply gl-px-3;
-    }
-
-    &:not(.active):hover {
-      @include gl-text-gray-900;
-      box-shadow: inset 0 0 0 1px $gray-400;
-      border-color: $gray-400;
-      background: $gray-50;
-      @apply gl-z-1;
-    }
-
-    &:not(.active):focus {
-      @include gl-bg-gray-50;
-    }
-
-    &:not(.active):active,
-    &:not(.active).active {
-      @include gl-bg-gray-100;
-    }
-
-    &:not(.active):focus,
-    &:not(.active):active,
-    &:not(.active).active {
-      @include gl-focus();
-    }
-
-    &,
-    &:active {
-      @apply gl-no-underline;
-    }
-  }
-
-  .page-item {
-    &:not(.disabled) a.active {
-      @include gl-bg-blue-500;
-      @apply gl-border-blue-500;
-      @include gl-text-white;
-      @apply gl-z-2;
-      @include gl-shadow-none;
-
-      &:focus {
-        @include gl-focus();
-      }
-    }
-
-    &.disabled .page-link {
-      @include gl-bg-gray-10;
-      @apply gl-border-gray-200;
-      @include gl-text-gray-500;
-    }
-  }
-
-  .prev-page-item,
-  .next-page-item {
-    .gl-icon {
-      vertical-align: bottom;
-    }
+    color: var(--gl-action-neutral-foreground-color-default);
   }
 }
 
-// stylelint-disable-next-line @gitlab/no-gl-media-breakpoint-down
-@include gl-media-breakpoint-down(sm) {
-  .gl-pagination {
-    .prev-page-item,
-    .next-page-item {
-      span {
-        display: none;
-      }
-    }
+.gl-pagination-item {
+  @apply gl-flex;
+  @apply gl-justify-center;
+  @apply gl-p-3;
+  @apply gl-leading-normal;
+  @apply gl-rounded-base;
+  @apply gl-no-underline;
+  @apply gl-min-w-7;
+  @apply gl-text-center;
+  @apply gl-border-1;
+  @apply gl-border-solid;
+  @include gl-action-neutral-colors;
+
+  &:hover {
+    @apply gl-no-underline;
   }
+
+  &:focus,
+  &:active:focus {
+    @apply gl-no-underline;
+    @apply gl-focus;
+  }
+
+  &:active {
+    @apply gl-no-underline;
+  }
+
+  &:not(.disabled).active {
+    @include gl-action-selected-colors;
+  }
+}
+
+.gl-pagination .disabled .gl-pagination-item {
+  color: var(--gl-action-disabled-foreground-color);
+  border-color: var(--gl-color-alpha-0);
+  background-color: var(--gl-color-alpha-0);
 }
