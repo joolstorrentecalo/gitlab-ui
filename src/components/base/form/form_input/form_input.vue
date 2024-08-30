@@ -77,6 +77,9 @@ export default {
         },
       };
     },
+    noWheel() {
+      return this.$attrs.type === 'number';
+    },
   },
 };
 </script>
@@ -85,7 +88,7 @@ export default {
   <b-form-input
     class="gl-form-input"
     :class="cssClasses"
-    no-wheel
+    :no-wheel="noWheel"
     v-bind="$attrs"
     v-on="listeners"
   />
