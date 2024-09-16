@@ -67,6 +67,10 @@
   .gl-new-dropdown-toggle {
     .gl-button-text {
       @include gl-display-inline-flex;
+
+      &:has(.gl-sr-only) {
+        width: auto;
+      }
     }
   }
 

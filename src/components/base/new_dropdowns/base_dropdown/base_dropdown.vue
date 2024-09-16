@@ -175,7 +175,7 @@ export default {
       return Boolean(this.icon && this.hasNoVisibleToggleText);
     },
     isEllipsisButton() {
-      return Boolean(this.icon && this.hasNoVisibleToggleText && this.icon === 'ellipsis_h');
+      return this.isIconOnly && this.icon === 'ellipsis_h';
     },
     isCaretOnly() {
       return !this.noCaret && !this.icon && this.hasNoVisibleToggleText;
@@ -193,10 +193,10 @@ export default {
         this.toggleClass,
         {
           'gl-new-dropdown-toggle': true,
+          'button-ellipsis-horizontal': this.isEllipsisButton,
           'gl-new-dropdown-icon-only btn-icon': this.isIconOnly && !this.isEllipsisButton,
           'gl-new-dropdown-toggle-no-caret': this.noCaret,
-          'gl-new-dropdown-caret-only btn-icon': this.isCaretOnly && !this.isEllipsisButton,
-          'button-ellipsis-horizontal': this.isEllipsisButton,
+          'gl-new-dropdown-caret-only btn-icon': this.isCaretOnly,
         },
       ];
     },
