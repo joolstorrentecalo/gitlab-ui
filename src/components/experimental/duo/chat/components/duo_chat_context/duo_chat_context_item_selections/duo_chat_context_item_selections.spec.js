@@ -1,10 +1,13 @@
+import { nextTick } from 'vue';
 import { shallowMount } from '@vue/test-utils';
 import GlIcon from '../../../../../../base/icon/icon.vue';
 import GlToken from '../../../../../../base/token/token.vue';
+import GlDuoChatContextItemDetails from '../duo_chat_content_item_details/duo_chat_content_item_details.vue';
 import GlDuoChatContextItemPopover from '../duo_chat_context_item_popover/duo_chat_context_item_popover.vue';
 import {
   getMockContextItems,
   MOCK_CONTEXT_ITEM_FILE,
+  MOCK_CONTEXT_ITEM_GIT,
   MOCK_CONTEXT_ITEM_ISSUE,
   MOCK_CONTEXT_ITEM_MERGE_REQUEST,
 } from '../mock_context_data';
@@ -35,6 +38,7 @@ describe('GlDuoChatContextItemSelections', () => {
   const findTokensIcons = () => findTokensWrapper().findAllComponents(GlIcon);
   const findPopovers = () => wrapper.findAllComponents(GlDuoChatContextItemPopover);
   const findCollapseIcon = () => findByTestId('chat-context-collapse-icon');
+  const findItemDetailsModal = () => wrapper.findComponent(GlDuoChatContextItemDetails);
 
   describe('component rendering', () => {
     it('renders the component when selections are provided', () => {
@@ -170,6 +174,52 @@ describe('GlDuoChatContextItemSelections', () => {
         expect(wrapper.emitted('remove')).toHaveLength(1);
         expect(wrapper.emitted('remove')[0]).toEqual([MOCK_CONTEXT_ITEM_FILE]);
       });
+    });
+
+    describe('when opening context items', () => {
+      describe.each([{ item: MOCK_CONTEXT_ITEM_FILE }, { item: MOCK_CONTEXT_ITEM_GIT }])(
+        'and the item is a "$item.category"',
+        ({ item }) => {
+          beforeEach(() => {
+            createComponent({ selections: [item] });
+            return findTokens().at(0).vm.$emit('click');
+          });
+
+          it('should display the details view', () => {
+            expect(findItemDetailsModal().props('contextItem')).toEqual(item);
+          });
+
+          it('should emit a "get-content" event to hydrate the item', () => {
+            expect(wrapper.emitted('get-content')).toHaveLength(1);
+            expect(wrapper.emitted('get-content').at(0)).toEqual([item]);
+          });
+
+          it('should close the details view when modal emits "close" event', async () => {
+            findItemDetailsModal().vm.$emit('close');
+            await nextTick();
+
+            expect(findItemDetailsModal().exists()).toBe(false);
+          });
+        }
+      );
+
+      describe.each([{ item: MOCK_CONTEXT_ITEM_MERGE_REQUEST }, { item: MOCK_CONTEXT_ITEM_ISSUE }])(
+        'and the item is a "$item.category"',
+        ({ item }) => {
+          beforeEach(() => {
+            createComponent({ selections: [item] });
+            return findTokens().at(0).vm.$emit('click');
+          });
+
+          it('should not display any details view', () => {
+            expect(findItemDetailsModal().exists()).toBe(false);
+          });
+
+          it('should not emit any "get-content" event', () => {
+            expect(wrapper.emitted('get-content')).toBe(undefined);
+          });
+        }
+      );
     });
   });
 });

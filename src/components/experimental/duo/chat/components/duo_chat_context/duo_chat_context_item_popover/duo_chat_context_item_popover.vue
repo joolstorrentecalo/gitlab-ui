@@ -84,6 +84,8 @@ export default {
           return 'merge-request';
         case 'issue':
           return 'issues';
+        case 'git':
+          return 'git';
         default:
           return 'project';
       }
@@ -94,6 +96,8 @@ export default {
           return translate('DuoChatContextItemPopover.MergeRequest', 'Merge request');
         case 'issue':
           return translate('DuoChatContextItemPopover.Issue', 'Issue');
+        case 'git':
+          return translate('DuoChatContextItemPopover.Git', 'Local Git repository diff');
         default:
           return translate('DuoChatContextItemPopover.File', 'Project file');
       }

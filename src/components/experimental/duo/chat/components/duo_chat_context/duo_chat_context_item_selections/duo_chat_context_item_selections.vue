@@ -2,20 +2,33 @@
 import uniqueId from 'lodash/uniqueId';
 import GlIcon from '../../../../../../base/icon/icon.vue';
 import GlToken from '../../../../../../base/token/token.vue';
+import GlTruncate from '../../../../../../utilities/truncate/truncate.vue';
 import GlDuoChatContextItemPopover from '../duo_chat_context_item_popover/duo_chat_context_item_popover.vue';
 import {
+  CONTEXT_ITEM_CATEGORY_FILE,
+  CONTEXT_ITEM_CATEGORY_GIT,
   CONTEXT_ITEM_CATEGORY_ISSUE,
   CONTEXT_ITEM_CATEGORY_MERGE_REQUEST,
-  CONTEXT_ITEM_CATEGORY_FILE,
 } from '../constants';
 import { contextItemsValidator } from '../utils';
+import GlDuoChatContextItemDetails from '../duo_chat_content_item_details/duo_chat_content_item_details.vue';
 
 export default {
   name: 'GlDuoChatContextItemSelections',
   components: {
+    GlTruncate,
+    GlDuoChatContextItemDetails,
     GlIcon,
     GlDuoChatContextItemPopover,
     GlToken,
+  },
+  inject: {
+    renderGFM: {
+      from: 'renderGFM',
+      default: () => (element) => {
+        element.classList.add('gl-markdown', 'gl-compact-markdown');
+      },
+    },
   },
   props: {
     /**
@@ -58,6 +71,7 @@ export default {
     return {
       isCollapsed: this.defaultCollapsed,
       selectionsId: uniqueId(),
+      previewContextItemId: null,
     };
   },
   computed: {
@@ -75,6 +89,13 @@ export default {
         return 'gl-bg-blue-50 gl-text-blue-600';
       }
       return '';
+    },
+    contextItemPreview() {
+      if (!this.previewContextItemId) {
+        return undefined;
+      }
+
+      return this.selections.find((item) => item.id === this.previewContextItemId);
     },
   },
   methods: {
@@ -95,6 +116,22 @@ export default {
        * @property {Object} item - The context contextItem to be removed
        */
       this.$emit('remove', contextItem);
+    },
+    onOpenItem(contextItem) {
+      if (!this.canOpen(contextItem)) {
+        return;
+      }
+
+      if (!contextItem.content) {
+        this.$emit('get-content', contextItem);
+      }
+      this.previewContextItemId = contextItem.id;
+    },
+    canOpen(contextItem) {
+      return [CONTEXT_ITEM_CATEGORY_GIT, CONTEXT_ITEM_CATEGORY_FILE].includes(contextItem.category);
+    },
+    onClosePreview() {
+      this.previewContextItemId = null;
     },
   },
 };
@@ -122,20 +159,30 @@ export default {
         :key="item.id"
         :view-only="!removable"
         variant="default"
-        class="gl-mb-2 gl-mr-2"
-        :class="tokenVariantClasses"
+        class="gl-mb-2 gl-mr-2 gl-max-w-full"
+        :class="[tokenVariantClasses, canOpen(item) ? 'gl-cursor-pointer' : '']"
+        @click="onOpenItem(item)"
         @close="onRemoveItem(item)"
       >
-        <div :id="`context-item-${item.id}-${selectionsId}`" class="gl-flex gl-items-center">
+        <div
+          :id="`context-item-${item.id}-${selectionsId}`"
+          class="gl-flex gl-min-w-0 gl-items-center"
+        >
           <gl-icon :name="getIconName(item.category)" :size="12" class="gl-mr-1" />
-          {{ item.metadata.title }}
+          <gl-truncate :text="item.metadata.title" position="middle" />
         </div>
         <gl-duo-chat-context-item-popover
           :context-item="item"
           :target="`context-item-${item.id}-${selectionsId}-token`"
           placement="bottom"
+          @show-git-diff="onOpenItem(item)"
         />
       </gl-token>
     </div>
+    <gl-duo-chat-context-item-details
+      v-if="contextItemPreview"
+      :context-item="contextItemPreview"
+      @close="onClosePreview"
+    />
   </div>
 </template>
