@@ -7,7 +7,7 @@
     .gl-new-dropdown-item-content {
       &:disabled,
       &[disabled] {
-        @include gl-text-gray-500;
+        color: var(--gl-text-color-disabled);
         cursor: not-allowed;
         background: none;
         text-decoration: none;
