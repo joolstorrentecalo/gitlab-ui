@@ -518,6 +518,15 @@ $gl-label-light-button-icon-color-default: $gl-color-neutral-950; // Used for th
 $gl-label-light-button-background-color-hover: $gl-color-neutral-950; // Used for the label remove button background on a light background color in the hover state.
 $gl-label-light-button-background-color-default: $gl-color-alpha-0; // Used for the label remove button background on a light background color in the default state.
 $gl-label-light-text-color: $gl-color-neutral-950; // Used for the label text color on a light background color.
+$gl-dropdown-option-selected-background-color-active: $gl-color-neutral-200; // Used for the background of an selected dropdown option in the active state.
+$gl-dropdown-option-selected-background-color-hover: $gl-color-neutral-100; // Used for the background of an selected dropdown option in the hover state.
+$gl-dropdown-option-selected-background-color-default: $gl-color-neutral-50; // Used for the background of an selected dropdown option in the default state.
+$gl-dropdown-option-unselected-background-color-active: $gl-action-neutral-background-color-active; // Used for the background of an unselected dropdown option in the active state.
+$gl-dropdown-option-unselected-background-color-hover: $gl-action-neutral-background-color-hover; // Used for the background of an unselected dropdown option in the hover state.
+$gl-dropdown-option-unselected-background-color-default: $gl-action-neutral-background-color-default; // Used for the background of an unselected dropdown option in the default state.
+$gl-dropdown-option-indicator-color-active: $gl-color-blue-700; // Used for the background of a dropdown option indicator in the active state.
+$gl-dropdown-border-color: $gl-color-neutral-200; // Used for the border of a dropdown.
+$gl-dropdown-background-color: $gl-color-neutral-0; // Used for the background of a dropdown.
 $gl-datepicker-background-color: $gl-color-neutral-0; // Used for the background color of datepicker.
 $gl-button-disabled-border-color: $gl-color-neutral-100; // Used for the border of a disabled button.
 $gl-button-disabled-background-color: $gl-color-neutral-10; // Used for the background of a disabled button.
@@ -762,6 +771,11 @@ $gl-control-text-color-valid: $gl-text-color-success; // Used for the helper tex
 $gl-control-text-color-error: $gl-text-color-danger; // Used for the helper text when the input is invalid.
 $gl-table-sorting-icon-color: $gl-text-color-heading; // Used for the color of the sorting icons in the column headers.
 $gl-table-row-background-color-hover: $gl-background-color-subtle; // Used for the background of a table row in hover state.
+$gl-dropdown-option-selected-background-color-focus: $gl-dropdown-option-selected-background-color-hover; // Used for the background of an selected dropdown option in the focus state.
+$gl-dropdown-option-unselected-background-color-focus: $gl-action-neutral-background-color-focus; // Used for the background of an unselected dropdown option in the focus state.
+$gl-dropdown-option-indicator-color-focus: $gl-control-background-color-selected-focus; // Used for the background of a dropdown option indicator in the focus state.
+$gl-dropdown-option-indicator-color-hover: $gl-control-background-color-selected-hover; // Used for the background of a dropdown option indicator in the hover state.
+$gl-dropdown-option-indicator-color-default: $gl-control-background-color-selected-default; // Used for the background of a dropdown option indicator in the default state.
 $gl-datepicker-date-text-color-selected: $gl-control-indicator-color-selected; // Used for the datepicker date text color state indicators.
 $gl-button-selected-border-color-focus: $gl-button-selected-border-color-hover; // Used for the border of a selected button in the focus state.
 $gl-button-selected-background-color-active: $gl-button-default-primary-background-color-active; // Used for the background of a selected button in the active state.
