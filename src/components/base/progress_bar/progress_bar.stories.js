@@ -19,6 +19,14 @@ export const SuccessVariant = Template.bind({});
 SuccessVariant.args = generateProps({ variant: progressBarOptions.success });
 SuccessVariant.parameters = { controls: { disabled: true } };
 
+export const WarningVariant = Template.bind({});
+WarningVariant.args = generateProps({ variant: progressBarOptions.warning });
+WarningVariant.parameters = { controls: { disabled: true } };
+
+export const DangerVariant = Template.bind({});
+DangerVariant.args = generateProps({ variant: progressBarOptions.danger });
+DangerVariant.parameters = { controls: { disabled: true } };
+
 export default {
   title: 'base/progress-bar',
   component: GlProgressBar,

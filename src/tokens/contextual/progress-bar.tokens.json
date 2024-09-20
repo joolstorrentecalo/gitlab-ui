@@ -1,0 +1,35 @@
+{
+  "progress-bar": {
+    "indicator": {
+      "color": {
+        "default": {
+          "$value": "{status.info.icon.color}",
+          "$type": "color",
+          "$description": "Used for the indicator color for the primary progress-bar type."
+        },
+        "success": {
+          "$value": "{status.success.icon.color}",
+          "$type": "color",
+          "$description": "Used for the indicator color for the success progress-bar type."
+        },
+        "warning": {
+          "$value": "{status.warning.icon.color}",
+          "$type": "color",
+          "$description": "Used for the indicator color for the warning progress-bar type."
+        },
+        "danger": {
+          "$value": "{status.danger.icon.color}",
+          "$type": "color",
+          "$description": "Used for the indicator color for the danger progress-bar type."
+        }
+      }
+    },
+    "track": {
+      "color": {
+        "$value": "{color.neutral.200}",
+        "$type": "color",
+        "$description": "Used for the track color for all progress-bar types."
+      }
+    }
+  }
+}
