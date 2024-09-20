@@ -1,6 +1,6 @@
 @mixin gl-tmp-dropdown-item-style {
   @apply gl-items-center;
-  @include gl-bg-transparent;
+  @apply gl-bg-transparent;
   @apply gl-border-0;
   @apply gl-flex;
   @apply gl-text-base;
@@ -11,7 +11,7 @@
   position: relative;
   @apply gl-rounded-none;
   @include gl-shadow-none;
-  @include gl-text-gray-900;
+  @apply gl-text-default;
   @include gl-text-left;
   @apply gl-w-full;
   @apply gl-whitespace-normal;
@@ -30,7 +30,7 @@
     .gl-dropdown-item-check-icon {
       @apply gl-shrink-0;
       @apply gl-mr-3;
-      @include gl-text-gray-700;
+      color: var(--gl-dropdown-option-indicator-color-default);
     }
 
     .gl-dropdown-item-icon {
@@ -44,7 +44,7 @@
 
     .gl-dropdown-item-text-secondary {
       @apply gl-m-0;
-      @include gl-text-gray-700;
+      @apply gl-text-subtle;
     }
 
     .gl-dropdown-item-text-wrapper {
@@ -64,7 +64,7 @@
     }
 
     &:disabled {
-      @include gl-text-gray-500;
+      @apply gl-text-disabled;
 
       .gl-new-dropdown-item-check-icon {
         @apply gl-text-inherit;
@@ -83,9 +83,9 @@
     &:active,
     &:focus,
     &.is-focused {
-      @include gl-bg-gray-50;
       @apply gl-no-underline;
-      @include gl-text-gray-900;
+      @apply gl-text-default;
+      background-color: var(--gl-dropdown-option-unselected-background-color-hover);
 
       // make sure the text color is not overridden
       &.text-danger {
