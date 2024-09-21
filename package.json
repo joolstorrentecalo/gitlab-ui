@@ -146,7 +146,7 @@
     "axe-core": "^4.2.3",
     "babel-jest": "29.0.1",
     "babel-loader": "^8.0.5",
-    "bootstrap": "4.6.2",
+    "bootstrap": "5.0.0",
     "cobertura-merge": "^1.0.4",
     "cypress": "13.14.2",
     "cypress-axe": "^1.4.0",
